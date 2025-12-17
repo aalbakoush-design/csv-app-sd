@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 name: CI - Tests, JaCoCo & PIT
+=======
+#update1
+name: CI - Unit Tests & JaCoCo
+>>>>>>> 83ba1f9fb2658039d159d07ab6cdaf5980473a60
 
 on:
   push:
