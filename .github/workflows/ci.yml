@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-name: CI - Tests, JaCoCo & PIT
-=======
-#update1
-name: CI - Unit Tests & JaCoCo
->>>>>>> 83ba1f9fb2658039d159d07ab6cdaf5980473a60
+name: CI - Unit Tests, JaCoCo & PIT
 
 on:
   push:
@@ -16,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -24,10 +19,21 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'maven'
 
-      - name: Run Unit Tests + JaCoCo
+      - name: Build & run unit tests
         run: mvn clean test
 
-      - name: Run PIT Mutation Testing
+      - name: Run PIT mutation tests
         run: mvn pitest:mutationCoverage
+
+      - name: Upload JaCoCo report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
+
+      - name: Upload PIT report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pit-report
+          path: target/pit-reports
